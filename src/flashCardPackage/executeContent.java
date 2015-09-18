@@ -23,15 +23,20 @@ public class executeContent {
 		StringBuilder myBuilder = new StringBuilder(); 
 		myBuilder.append("var page = require('webpage').create(); \n");
 		myBuilder.append("var fs = require('fs'); \n"); // File System Module
-		myBuilder.append("var system = require('system');");
+		myBuilder.append("var system = require('system'); \n");
 		myBuilder.append("var args = system.args; \n");
 		myBuilder.append("var output = 'pageOutput.html'; \n"); // path for saving the local file
 		
 		myBuilder.append("page.open('");
 		myBuilder.append(givenURL);
-		myBuilder.append("', function() { \n"); // open the file 
-		myBuilder.append("\t fs.write(output,page.content,'w'); \n");// Write the page to the local file using page.content
-		myBuilder.append("\t phantom.exit(); \n"); // exit PhantomJs
+		myBuilder.append("', function(status) { \n"); // open the file 
+		myBuilder.append("\t if (status == 'fail') { \n");
+		myBuilder.append("\t\t console.log('Failed to open page.'); \n");
+		myBuilder.append("\t\t phantom.exit(1); \n"); // exit PhantomJs with failure
+		myBuilder.append("\t } else { \n");
+		myBuilder.append("\t\t fs.write(output,page.content,'w'); \n");// Write the page to the local file using page.content
+		myBuilder.append("\t\t phantom.exit(0); \n"); // exit PhantomJs with success
+		myBuilder.append("\t } \n");
 		myBuilder.append("}); \n");
 		
 		String phantomFile = myBuilder.toString();
