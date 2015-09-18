@@ -23,6 +23,7 @@ public class executeContent {
 		StringBuilder myBuilder = new StringBuilder(); 
 		myBuilder.append("var page = require('webpage').create(); \n");
 		myBuilder.append("var fs = require('fs'); \n"); // File System Module
+		myBuilder.append("var system = require('system');");
 		myBuilder.append("var args = system.args; \n");
 		myBuilder.append("var output = 'pageOutput.html'; \n"); // path for saving the local file
 		
