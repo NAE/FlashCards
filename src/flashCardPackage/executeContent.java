@@ -26,7 +26,6 @@ public class executeContent {
 		myBuilder.append("var system = require('system'); \n");
 		myBuilder.append("var args = system.args; \n");
 		myBuilder.append("var output = 'pageOutput.html'; \n"); // path for saving the local file
-		
 		myBuilder.append("page.open('");
 		myBuilder.append(givenURL);
 		myBuilder.append("', function(status) { \n"); // open the file 
@@ -45,7 +44,7 @@ public class executeContent {
 		writer.write(phantomFile);
 		writer.close();
 		
-		Process process = Runtime.getRuntime().exec("U:\\GitHub\\FlashCards\\phantomjs-2.0.0-windows\\bin\\phantomjs phantomWriter.js");
+		Process process = Runtime.getRuntime().exec("U:\\GitHub\\FlashCards\\phantomjs-2.0.0-windows\\bin\\phantomjs --ignore-ssl-errors=true phantomWriter.js");
 		int exitStatus = process.waitFor();
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
